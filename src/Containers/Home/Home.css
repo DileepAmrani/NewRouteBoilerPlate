@@ -1,0 +1,40 @@
+body{
+    background-color: #f0e9d5;
+}
+.creat-post-heading{
+     font-weight: bold;
+    font-size: xx-large;
+}
+#standard-multiline-flexible{
+    max-width: 500px;
+    width: 100%;
+}
+.textArea{
+    width: 100%;
+    min-width: 300px;
+  min-height: 80px;
+  margin: 10px 0;
+  border: 2px solid #e0dcdc
+}
+
+.paper{
+    padding: 10px;
+    margin:  10px 0;
+    background-color: #f8f8ef !important;
+}
+.title{
+    font-weight: bold;
+    font-size: xx-large;
+    color: red;
+}
+.author{
+    /* display: block; */
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+.date{
+    font-weight: bold;
+    margin-left: 5px;
+}
+
