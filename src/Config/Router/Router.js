@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Home, Login, SignUp, Profile  } from "../../Containers";
+import { Home, Login, SignUp, Profile, EditPost  } from "../../Containers";
 
 function MainRoute() {
   return (
@@ -10,6 +10,7 @@ function MainRoute() {
         <Route path="/login" component={Login} />
         <Route path="/signup" component={SignUp} />
         <Route path="/profile" component={Profile} />
+        <Route path="/edit-post" component={EditPost} />
       </Switch>
     </Router>
   );

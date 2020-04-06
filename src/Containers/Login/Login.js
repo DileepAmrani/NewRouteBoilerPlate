@@ -8,10 +8,13 @@ import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
+import { firebaseApp } from "../../Config/Firebase/firebase";
 import Container from "@material-ui/core/Container";
 import { Navbar } from "../../Components";
+import Swal from "sweetalert2";
 import "./Login.css"
+import {useAlert, transitions, positions, Provider as AlertProvider } from "react-alert";
+import AlertTemplate from "react-alert-template-basic";
 
 function Copyright() {
   return (
@@ -25,12 +28,75 @@ function Copyright() {
     </Typography>
   );
 }
-
+const options = {
+  // you can also just use 'bottom center'
+  position: positions.BOTTOM_CENTER,
+  timeout: 5000,
+  offset: "30px",
+  // you can also just use 'scale'
+  transition: transitions.SCALE
+};
 export default class SignIn extends React.Component{
+  constructor(){
+    super()
+    this.state ={
+      email: "",
+      password: ""
+    } 
+  }
+
+  componentDidMount() {
+    firebaseApp.auth().onAuthStateChanged(user => {
+      if (user) {
+        // User is signed in.
+        this.props.history.push("/profile");
+
+      } else {
+        // User is signed out.
+        // ...
+        this.props.history.push("/login");
+
+      }
+    });
+  }
+
+  login = () =>{
+    const { email, password } = this.state;
+    firebaseApp
+    .auth()
+    .signInWithEmailAndPassword(email, password)
+    .then((res)=> {
+      // console.log("Document successfully written!", res);
+      console.log(res.user.uid)
+      localStorage.setItem("uid",res.user.uid)
+      Swal.fire("Login Succesfull", "You may Processed", "success");
+      this.props.history.push("/profile")
+      
+    })
+    .catch((error)=> {
+      // const alert = useAlert()
+      // Handle Errors here.
+      // var errorCode = error.code;
+      // var errorMessage = error.message;
+      //   Swal.fire({
+        //     icon: "error",
+        //     title: "Oops...",
+        //     text: { errorMessage }
+        //   });
+        // alert.show("Oh look, an alert!");
+        // ...
+      });
+    }
     render(){
-  return (
-    <div>
-      <Navbar path={() => this.props.history.push('/login')}/>
+      console.log(this.state)
+      const Swal = require("sweetalert2");
+      return (
+        <div template={AlertTemplate} {...options}>
+          <Navbar 
+            path={() => this.props.history.push("/login")}
+            path1={() => this.props.history.push("/profile")}
+            home={() => this.props.history.push("/")}
+            loginValue={this.state.loginValue}/>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div
@@ -38,7 +104,7 @@ export default class SignIn extends React.Component{
             textAlign: "center",
             marginTop: "10%"
           }}
-        >
+          >
           <Avatar className="avatar" style={{ backgroundColor: "red" }}>
             <LockOutlinedIcon />
           </Avatar>
@@ -56,7 +122,8 @@ export default class SignIn extends React.Component{
               name="email"
               autoComplete="email"
               autoFocus
-            />
+              onChange={e => this.setState({ email: e.target.value })}
+              />
             <TextField
               variant="outlined"
               margin="normal"
@@ -67,11 +134,18 @@ export default class SignIn extends React.Component{
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={e => this.setState({ password: e.target.value })}
             />
 
             <br />
             <br />
-            <Button type="submit" fullWidth variant="contained" color="primary">
+            <Button
+              type="button"
+              fullWidth
+              variant="contained"
+                  style={{ color: "#fff", backgroundColor: "#4db6ac" }}
+              onClick={() => this.login()}
+            >
               Sign In
             </Button>
             <Grid container style={{ margin: "10px 0" }}>

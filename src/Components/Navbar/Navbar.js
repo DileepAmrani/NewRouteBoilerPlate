@@ -13,7 +13,7 @@ import MoreIcon from "@material-ui/icons/MoreVert";
 import { FaBlogger } from "react-icons/fa";
 import { AiOutlineLogout } from "react-icons/ai";
 import { FaUserAlt } from "react-icons/fa";
-import { IoMdLogIn } from "react-icons/io";
+import { IoMdLogIn, IoIosHome } from "react-icons/io";
 
 
 const useStyles = makeStyles(theme => ({
@@ -116,23 +116,23 @@ export default function PrimarySearchAppBar(props) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      {false ? (
+      { props.loginValue ? 
         <div>
-          <MenuItem onClick={handleMenuClose}>
+          <MenuItem onClick={handleMenuClose,  ()=> props.path1()}>
             <FaUserAlt />
             &nbsp; Profile
           </MenuItem>
-          <MenuItem onClick={handleMenuClose}>
+          <MenuItem onClick={handleMenuClose, ()=> props.signOut()}>
             <AiOutlineLogout />
             &nbsp; Log Out
           </MenuItem>
         </div>
-      ) : (
-        <MenuItem onClick={handleMenuClose, ()=> props.path()}>
-          <IoMdLogIn />
-          &nbsp;
-          Log In</MenuItem>
-      )}
+            : 
+          <MenuItem onClick={handleMenuClose, ()=> props.path()}>
+            <IoMdLogIn />
+            &nbsp;
+            Log In</MenuItem>
+      }
     </Menu>
   );
 
@@ -147,22 +147,24 @@ export default function PrimarySearchAppBar(props) {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      {/* <MenuItem>
-        <IconButton aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="secondary">
-            <MailIcon />
+      <MenuItem onClick={() => props.home()} >
+        <IconButton aria-label="show 4 new mails" color="inherit" >
+          <Badge 
+          // badgeContent={4}
+           color="secondary">
+            <IoIosHome />
           </Badge>
         </IconButton>
-        <p>Messages</p>
-      </MenuItem> */}
-      <MenuItem>
+        <p>Home</p>
+      </MenuItem>
+      {/* <MenuItem onClick={()=>alert('coming soon..')}>
         <IconButton aria-label="show 11 new notifications" color="inherit">
-          <Badge badgeContent={11} color="secondary">
+          <Badge badgeContent={1} color="secondary">
             <NotificationsIcon />
           </Badge>
         </IconButton>
         <p>Notifications</p>
-      </MenuItem>
+      </MenuItem> */}
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           aria-label="account of current user"
@@ -181,7 +183,8 @@ export default function PrimarySearchAppBar(props) {
     <div className={classes.grow}>
       <AppBar
         position="static"
-        
+               style={{ backgroundColor:"#20B2AA"}}
+
       >
         <Toolbar>
           <IconButton
@@ -190,11 +193,10 @@ export default function PrimarySearchAppBar(props) {
             color="inherit"
             aria-label="open drawer"
           >
-            <FaBlogger />
-          </IconButton>
-          <Typography className={classes.titl} variant="h6" noWrap>
-            My Simple Blog
-          </Typography>
+                    </IconButton>
+          {/* <Typography className={classes.titl} variant="h6" noWrap> */}
+            <img src={require('./../../Images/quill.png')} width="50px" />
+          {/* </Typography> */}
           {/* <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
@@ -210,16 +212,18 @@ export default function PrimarySearchAppBar(props) {
           </div> */}
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            {/* <IconButton aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <MailIcon />
-              </Badge>
-            </IconButton> */}
-            <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={17} color="secondary">
-                <NotificationsIcon />
+            <IconButton aria-label="show 4 new mails" color="inherit" onClick={() => props.home()}>
+              <Badge
+              //  badgeContent={4}
+               color="secondary">
+                <IoIosHome />
               </Badge>
             </IconButton>
+            {/* <IconButton aria-label="show 17 new notifications" color="inherit">
+              <Badge badgeContent={0} color="secondary">
+                <NotificationsIcon />
+              </Badge>
+            </IconButton> */}
             <IconButton
               edge="end"
               aria-label="account of current user"

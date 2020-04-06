@@ -1,28 +1,77 @@
 import React from "react";
-import Container from "@material-ui/core/Container";
-import Grid from "@material-ui/core/Grid";
+import { TiSocialFacebookCircular, TiSocialLinkedinCircular, TiSocialTwitter } from "react-icons/ti";
 import "./Footer.css";
-
+import Logo from "./../../Images/quill.png"
 class Footer extends React.Component {
   render() {
     return (
-      <div className="footer">
-        <Container>
-          <Grid container>
-            <Grid item lg={6} sm={12}>
-              <h1>My Simple Blog    </h1>
-            </Grid>
-            <Grid item lg={6} sm={12}>
-              <h1>Hello World</h1>
-              <h1>Hello World</h1>
-              <h1>Hello World</h1>
-            </Grid>
-          </Grid>
-        </Container>
-        <div style={{ backgroundColor: "rgb(4, 26, 153)" }}>
-          <h2>Copy Right @ Dileep Amrani</h2>
-        </div>
-      </div>
+      <React.Fragment>
+        <footer className="footer-distributed">
+          <div className="footer-left">
+            <h3>
+            <img src={Logo} width='100px'/>
+            </h3>
+
+            <p className="footer-links">
+              <a href="/" class="link-1">
+                Home
+              </a>
+
+              <a href="#">Blog</a>
+
+              <a href="#">About</a>
+
+              <a href="#">Faq</a>
+
+              <a href="#">Contact</a>
+            </p>
+
+            <p className="footer-company-name">Company Name © 2015</p>
+          </div>
+
+          <div className="footer-center">
+            <div>
+              <i className="fa fa-map-marker"></i>
+              <p>
+                <span>444 S. Cedros Ave</span> Solana Beach, California
+              </p>
+            </div>
+
+            <div>
+              <i className="fa fa-phone"></i>
+              <p>+1.555.555.5555</p>
+            </div>
+
+            <div>
+              <i className="fa fa-envelope"></i>
+              <p>
+                <a href="mailto:support@company.com">support@company.com</a>
+              </p>
+            </div>
+          </div>
+
+          <div className="footer-right">
+            <p className="footer-company-about">
+              <span>About the company</span>
+              Lorem ipsum dolor sit amet, consectateur adispicing elit. Fusce
+              euismod convallis velit, eu auctor lacus vehicula sit amet.
+            </p>
+
+            <div className="footer-icons">
+              <a href="#">
+                <TiSocialFacebookCircular  size={35} />
+              </a>
+              <a href="#">
+                <TiSocialTwitter  size={35} />
+              </a>
+              <a href="#">
+                <TiSocialLinkedinCircular  size={35} />
+              </a>
+         
+            </div>
+          </div>
+        </footer>
+      </React.Fragment>
     );
   }
 }
